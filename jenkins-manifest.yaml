@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: jenkins-server-rs
+  labels:
+    env: dev
+  namespace: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: web-servers
+  template:
+    metadata:
+      name: jenkins
+      labels:
+        tier: web-servers
+    spec:
+      containers:
+      - name: jenkins
+        image: jenkins/jenkins
+        ports:
+        - containerPort: 8080

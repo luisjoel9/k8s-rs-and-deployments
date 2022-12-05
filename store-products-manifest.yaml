@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store-products-deploy
+  labels:
+    env: dev
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      tier: web-server
+  template:
+    metadata:
+      name: store-products
+      labels:
+        tier: web-server
+    spec:
+      containers:
+      - name: store-products
+        image: calebespinoza/store-products:3.0
+        ports:
+        - containerPort: 80
